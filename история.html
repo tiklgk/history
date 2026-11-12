@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>История: Древняя Индия (§ 17)</title>
+<style>
+  :root {
+    --bg: #FDF6E3; --card: #FFFFFF; --primary: #D97706; --primary-dark: #B45309;
+    --secondary: #0D9488; --accent: #DC2626; --success: #16A34A; --text: #1F2937;
+    --shadow: 0 6px 0 rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; }
+  body { margin: 0; background: var(--bg); color: var(--text); padding-bottom: 40px; }
+  header { background: linear-gradient(135deg, #D97706, #EA580C); color: white; padding: 16px 20px; text-align: center; box-shadow: var(--shadow); }
+  header h1 { margin: 0; font-size: 1.55rem; }
+  header p { margin: 4px 0 0; font-size: 0.95rem; opacity: 0.95; }
+
+  .nav-tabs { display: flex; justify-content: center; gap: 10px; padding: 15px; flex-wrap: wrap; }
+  .tab-btn { background: white; border: 3px solid var(--primary); color: var(--primary-dark); padding: 9px 16px; border-radius: 18px; font-weight: bold; cursor: pointer; font-size: 0.95rem; transition: 0.2s; }
+  .tab-btn.active { background: var(--primary); color: white; transform: translateY(-2px); }
+
+  .container { max-width: 840px; margin: 0 auto; padding: 0 15px; }
+  .card { background: var(--card); border-radius: 22px; padding: 22px; box-shadow: var(--shadow); border: 3px solid #FDE68A; margin-bottom: 20px; }
+
+  .modes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; }
+  .mode-card { border: 3px solid #E5E7EB; border-radius: 18px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; background: #FFFBEB; }
+  .mode-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+  .mode-step { position: absolute; top: -10px; left: 15px; background: var(--secondary); color: white; padding: 2px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
+  .mode-done { background: var(--success); color: white; padding: 5px; border-radius: 10px; font-size: 0.85rem; margin-top: 8px; font-weight: bold; }
+
+  .btn { background: var(--primary); color: white; border: none; padding: 12px 22px; border-radius: 14px; font-size: 1.05rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 var(--primary-dark); }
+  .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--primary-dark); }
+  .btn-next { background: var(--success); box-shadow: 0 4px 0 #15803D; margin-top: 15px; width: 100%; }
+
+  .progress-wrap { background: #E5E7EB; border-radius: 12px; height: 18px; overflow: hidden; margin: 10px 0 18px; }
+  .progress-fill { background: var(--success); height: 100%; width: 0%; transition: width 0.3s; }
+
+  .q-title { font-size: 1.25rem; font-weight: bold; margin: 15px 0; line-height: 1.4; color: #111827; }
+  .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .opt-btn { background: #F8FAFC; border: 3px solid #CBD5E1; padding: 13px 16px; border-radius: 14px; font-size: 1rem; cursor: pointer; font-weight: bold; text-align: left; color: var(--text); transition: 0.15s; }
+  .opt-btn:hover:not(:disabled) { border-color: var(--primary); background: #FEF3C7; }
+  .opt-btn.correct { background: #DCFCE7; border-color: var(--success); color: #14532D; }
+  .opt-btn.wrong { background: #FEE2E2; border-color: var(--accent); color: #7F1D1D; }
+
+  input[type="text"] { width: 100%; padding: 13px; font-size: 1.1rem; border: 3px solid var(--secondary); border-radius: 14px; margin-bottom: 10px; outline: none; }
+
+  .pairs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pair-col { display: flex; flex-direction: column; gap: 8px; }
+  .pair-item { padding: 11px; border: 3px solid #D1D5DB; border-radius: 12px; cursor: pointer; font-weight: bold; background: white; font-size: 0.95rem; text-align: center; }
+  .pair-item.selected { border-color: var(--primary); background: #FEF3C7; }
+  .pair-item.matched { border-color: var(--success); background: #DCFCE7; opacity: 0.55; pointer-events: none; }
+
+  .map-box { position: relative; max-width: 520px; margin: 0 auto; border: 3px solid var(--secondary); border-radius: 16px; overflow: hidden; background: #BAE6FD; }
+  .map-pin { cursor: pointer; transition: 0.2s; }
+  .map-pin:hover circle { r: 13; fill: #F59E0B; }
+
+  .feedback { padding: 14px; border-radius: 14px; margin-top: 14px; font-weight: bold; line-height: 1.4; }
+  .feedback.ok { background: #DCFCE7; color: #14532D; }
+  .feedback.err { background: #FEE2E2; color: #7F1D1D; }
+  .final-badge { background: #FACC15; color: #713F12; padding: 8px; border-radius: 12px; text-align: center; font-weight: bold; margin-bottom: 10px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🕌 История Древнего мира: § 17 «Древняя Индия»</h1>
+  <p>Интерактивный тренажер для подготовки на пятерку</p>
+</header>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="switchTab(this, 'train')">🎯 Тренировка</button>
+  <button class="tab-btn" onclick="switchTab(this, 'notes')">📜 Конспект параграфа</button>
+  <button class="tab-btn" onclick="switchTab(this, 'stats')">🏆 Мой прогресс</button>
+</div>
+
+<div class="container">
+
+  <div id="tab-train">
+    <div class="card">
+      <h3>Выбери этап подготовки (иди по порядку для лучшего результата):</h3>
+      <div class="modes-grid" id="modes-grid"></div>
+    </div>
+
+    <div class="card hidden" id="exercise-box">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span id="ex-mode-title" style="font-weight:bold; color:var(--primary-dark); font-size:1.1rem;"></span>
+        <button class="btn" style="padding:6px 12px; font-size:0.9rem; background:#6B7280; box-shadow:none;" onclick="closeExercise()">✖ Выйти</button>
+      </div>
+      
+      <div class="progress-wrap">
+        <div class="progress-fill" id="ex-progress-fill"></div>
+      </div>
+      <div style="text-align:right; font-size:0.9rem; margin-top:-12px; margin-bottom:10px; font-weight:bold;" id="ex-progress-text"></div>
+
+      <div id="final-banner" class="final-badge hidden">🔥 ФИНАЛЬНЫЙ ЗАЧЕТ! Ответь на все вопросы без единой ошибки!</div>
+
+      <div id="ex-content"></div>
+      <div id="ex-feedback" class="feedback hidden"></div>
+      <button id="ex-next-btn" class="btn btn-next hidden" onclick="nextQuestion()">Следующее задание ➔</button>
+    </div>
+  </div>
+
+  <div id="tab-notes" class="hidden">
+    <div class="card">
+      <h2>📜 Главные факты § 17 «Древняя Индия»</h2>
+      <div id="notes-content" style="line-height:1.6;"></div>
+    </div>
+  </div>
+
+  <div id="tab-stats" class="hidden">
+    <div class="card">
+      <h2>🏆 Общий прогресс изучения</h2>
+      <div id="stats-content"></div>
+      <button class="btn" style="background:var(--accent); box-shadow:0 4px 0 #991B1B; margin-top:20px;" onclick="resetProgress()">Сбросить прогресс</button>
+    </div>
+  </div>
+
+</div>
+<script>
+const QUIZ_DATA = [
+  { id: "q1", q: "На каком полуострове в Южной Азии располагается Индия?", opts: ["Полуостров Индостан", "Аравийский полуостров", "Балканский полуостров", "Пиренейский полуостров"], a: 0, exp: "Индия занимает полуостров Индостан на юге Азии." },
+  { id: "q2", q: "Какие горы защищают Индию с севера от холодных ветров?", opts: ["Гималаи", "Альпы", "Кавказские горы", "Уральские горы"], a: 0, exp: "Самые высокие горы мира — Гималаи — закрывают Индию с севера." },
+  { id: "q3", q: "Какие две самые большие реки протекают по территории Индии?", opts: ["Инд и Ганг", "Тигр и Евфрат", "Хуанхэ и Янцзы", "Нил и Конго"], a: 0, exp: "Земледельцы освоили плодородные долины двух великих рек — Инда и Ганга." },
+  { id: "q4", q: "Как в текстах Месопотамии называли страну древнеиндийской цивилизации?", opts: ["Мелухха («далёкая страна»)", "Арьяварта", "Калинга", "Магадха"], a: 0, exp: "Торговцы из Месопотамии называли цивилизацию долины Инда Мелуххой." },
+  { id: "q5", q: "Какую особенность имели перекрёстки улиц в городе Мохенджо-Даро?", opts: ["Углы зданий закруглялись, чтобы не мешать повозкам", "На каждом углу стояли золотые статуи царей", "Улицы пересекались только под острым углом", "Перекрёстки закрывались железными воротами"], a: 0, exp: "В Мохенджо-Даро была продуманная планировка: прямые улицы, канализация и закруглённые углы домов." },
+  { id: "q6", q: "Что произошло с Хараппской цивилизацией к середине 2-го тысячелетия до н. э.?", opts: ["Жители внезапно покинули города, и цивилизация исчезла", "Она захватила весь Китай и Месопотамию", "Её полностью затопил Индийский океан", "Она объединилась с Древним Египтом"], a: 0, exp: "По неизвестной пока причине к середине 2-го тыс. до н. э. города опустели." },
+  { id: "q7", q: "На каком языке говорили пришедшие в Индию племена ариев?", opts: ["На санскрите", "На шумерском", "На древнегреческом", "На латыни"], a: 0, exp: "Арии принесли в Индию свой язык — санскрит." },
+  { id: "q8", q: "Почему царь Ашока отказался от войн и жестокости?", opts: ["Его потрясла гибель множества людей при завоевании Калинги", "Его армия потерпела полное поражение от греков", "Он тяжело заболел и ушёл жить в пещеру", "Воины-кшатрии отказались ему подчиняться"], a: 0, exp: "После кровопролитной победы над областью Калинга Ашока принял учение Будды и стал милостивым правителем." },
+  { id: "q9", q: "Какое учение принял и распространял царь Ашока?", opts: ["Учение Будды (буддизм)", "Конфуцианство", "Зороастризм", "Христианство"], a: 0, exp: "Ашока проникся учением Будды («истиной Просветлённого»)." },
+  { id: "q10", q: "Правление какого царя называют «золотым веком» династии Гуптов?", opts: ["Чандрагупты II (380–415 гг.)", "Ашоки Жестокого", "Хаммурапи", "Цинь Шихуанди"], a: 0, exp: "При Чандрагупте II (380–415 гг.) расцвели наука, искусство и культура Индии." },
+  { id: "q11", q: "Из какой части тела бог Брахма, по легенде, создал жрецов-брахманов?", opts: ["Из своих уст", "Из могучих рук", "Из своих бёдер", "Из ног, запачканных в грязи"], a: 0, exp: "Из уст Брахмы вышли брахманы, поэтому только они могли беседовать с богами." },
+  { id: "q12", q: "Из какой части тела Брахма создал воинов-кшатриев?", opts: ["Из могучих рук", "Из своих уст", "Из своих бёдер", "Из ступней"], a: 0, exp: "Из могучих рук бога вышли воины и цари — кшатрии." },
+  { id: "q13", q: "Кого бог Брахма создал из своих бёдер?", opts: ["Земледельцев, ремесленников и торговцев (вайшьев)", "Жрецов (брахманов)", "Воинов (кшатриев)", "Слуг (шудр)"], a: 0, exp: "Из бёдер Брахмы появились вайшьи — обычные общинники, земледельцы и ремесленники." },
+  { id: "q14", q: "Работа с источником (Законы Ману): кому предписывалось «служение этим варнам со смирением»?", opts: ["Шудрам (слугам)", "Брахманам", "Кшатриям", "Вайшьям"], a: 0, exp: "По Законам Ману, единственным занятием шудр было смиренное служение трём высшим варнам." },
+  { id: "q15", q: "Какое понятие лишнее в списке: 1) кшатрии; 2) вайшья; 3) сатрапии; 4) брахманы; 5) варны?", opts: ["Сатрапии (это области в Персидской державе)", "Вайшья", "Кшатрии", "Брахманы"], a: 0, exp: "Сатрапии — это административные округа в Древней Персии, а остальные слова относятся к варнам Индии." },
+  { id: "q16", q: "Что такое Пещеры Аджанты?", opts: ["30 пещер со ступами и буддийским монастырём II века до н. э.", "Гробницы правителей Хараппы", "Древняя обсерватория царя Самудрагупты", "Тайный склад оружия ариев"], a: 0, exp: "В скалах Аджанты во II веке до н. э. были вырезаны 30 пещер: 5 залов со ступами и 25 помещений монастыря." }
+];
+
+const PAIRS_DATA = [
+  { id: "p1", term: "Варны", def: "Четыре группы людей в Индии со строгими правами и занятиями" },
+  { id: "p2", term: "Санскрит", def: "Древний язык, на котором говорили племена ариев" },
+  { id: "p3", term: "Раджи", def: "Вожди арийских племён, превратившиеся в царей" },
+  { id: "p4", term: "Брахманы", def: "Высшая варна жрецов, созданная из уст бога Брахмы" },
+  { id: "p5", term: "Кшатрии", def: "Варна воинов и царей, созданная из рук Брахмы" },
+  { id: "p6", term: "Вайшьи", def: "Земледельцы, ремесленники и купцы (из бёдер Брахмы)" },
+  { id: "p7", term: "Шудры", def: "Варна слуг, созданная из ног Брахмы" },
+  { id: "p8", term: "Мохенджо-Даро", def: "Древний город в долине Инда («холм мёртвых»)" },
+  { id: "p9", term: "Чандрагупта Маурья", def: "Основатель империи Маурьев в конце IV века до н. э." },
+  { id: "p10", term: "Царь Ашока", def: "Правитель III века до н. э., объединивший почти всю Индию" },
+  { id: "p11", term: "Самудрагупта", def: "Правитель династии Гуптов (335–380 гг.), объединивший Северную Индию" },
+  { id: "p12", term: "Чандрагупта II", def: "Царь (380–415 гг.), чьё правление называют «золотым веком» Гуптов" }
+];
+const MAP_POINTS = [
+  { id: "m1", name: "Река Инд", q: "Нажми на реку Инд, в долине которой возникла Хараппская цивилизация.", x: 135, y: 155 },
+  { id: "m2", name: "Река Ганг", q: "Нажми на реку Ганг на северо-востоке Индостана.", x: 295, y: 185 },
+  { id: "m3", name: "Горы Гималаи", q: "Нажми на Гималаи — высочайшие горы, защищающие Индию с севера.", x: 265, y: 115 },
+  { id: "m4", name: "Город Хараппа", q: "Нажми на город Хараппа — один из главных центров древнейшей цивилизации.", x: 170, y: 135 },
+  { id: "m5", name: "Мохенджо-Даро", q: "Нажми на город Мохенджо-Даро («холм мёртвых») в нижнем течении Инда.", x: 118, y: 195 },
+  { id: "m6", name: "Паталипутра", q: "Нажми на город Паталипутра — столицу державы Маурьев на реке Ганг.", x: 325, y: 195 },
+  { id: "m7", name: "Сарнатх", q: "Нажми на Сарнатх — место, где Будда впервые поведал людям о своём учении.", x: 275, y: 182 },
+  { id: "m8", name: "Полуостров Индостан", q: "Нажми на центральную часть полуострова Индостан.", x: 225, y: 270 },
+  { id: "m9", name: "Остров Цейлон", q: "Нажми на крупный остров Цейлон к югу от Индостана.", x: 278, y: 375 },
+  { id: "m10", name: "Индийский океан", q: "Нажми на Индийский океан, омывающий Индию с юга.", x: 185, y: 405 }
+];
+
+const INPUT_DATA = [
+  { id: "i1", q: "В каком тысячелетии до н. э. в долине реки Инд возникла Хараппская цивилизация? (напиши цифрой, например: 3)", ans: ["3", "3-м", "третье", "3 тысячелетие"], show: "3-е тысячелетие до н. э." },
+  { id: "i2", q: "В середине какого тысячелетия до н. э. жители покинули города Хараппы и в Индию вторглись арии?", ans: ["2", "2-го", "второе", "2 тысячелетие"], show: "Середина 2-го тысячелетия до н. э." },
+  { id: "i3", q: "В начале какого тысячелетия до н. э. потомки ариев научились добывать и обрабатывать железо?", ans: ["1", "1-го", "первое", "1 тысячелетие"], show: "Начало 1-го тысячелетия до н. э." },
+  { id: "i4", q: "В конце какого века до н. э. Чандрагупта основал империю Маурьев? (напиши числом или римской цифрой)", ans: ["4", "iv", "4 век", "iv век"], show: "Конец IV (4) века до н. э." },
+  { id: "i5", q: "В середине какого века до н. э. правил царь Ашока?", ans: ["3", "iii", "3 век", "iii век"], show: "Середина III (3) века до н. э." },
+  { id: "i6", q: "Как назывались 4 замкнутые группы людей в Древней Индии (слово на санскрите значит «сорт», «категория»)?", ans: ["варны", "варна"], show: "Варны" },
+  { id: "i7", q: "Как назывался древний язык ариев, на котором написаны Веды и Законы Ману?", ans: ["санскрит"], show: "Санскрит" },
+  { id: "i8", q: "Как называли вождей арийских племён, которые со временем превратились в царей?", ans: ["раджи", "раджа"], show: "Раджи" },
+  { id: "i9", q: "Кто по легенде создал четыре варны из разных частей своего тела? (напиши имя бога)", ans: ["брахма", "бог брахма"], show: "Бог Брахма" },
+  { id: "i10", q: "В какие века кочевники уничтожили державу Гуптов? (напиши через дефис, например: 5-6)", ans: ["5-6", "v-vi", "5–6", "v–vi"], show: "V–VI (5–6) века" }
+];
+
+const NOTES_HTML = `
+  <p><b>1. Природные условия:</b> Индия расположена на полуострове <b>Индостан</b> в Южной Азии. С севера её защищают горы <b>Гималаи</b>, с юга омывает <b>Индийский океан</b>. Главные реки — <b>Инд</b> и <b>Ганг</b>.</p>
+  <p><b>2. Хараппская цивилизация (3-е тыс. до н. э.):</b> Возникла в долине реки Инд. Крупнейшие города — <b>Хараппа</b> и <b>Мохенджо-Даро</b> («холм мёртвых»). Улицы были прямыми с закруглёнными углами, работала канализация, существовала письменность и торговля с Месопотамией (там Индию звали <b>Мелухха</b>). В середине 2-го тыс. до н. э. жители внезапно покинули города.</p>
+  <p><b>3. Приход ариев и империя Маурьев:</b> В середине 2-го тыс. до н. э. пришли племена <b>ариев</b> (язык — <b>санскрит</b>, вожди — <b>раджи</b>). В начале 1-го тыс. до н. э. в Индии научились обрабатывать железо. В конце IV (4) века до н. э. <b>Чандрагупта Маурья</b> основал империю. Наивысшего расцвета она достигла в середине III (3) века до н. э. при царе <b>Ашоке</b>, который после кровопролитной войны с Калингой принял учение Будды.</p>
+  <p><b>4. Династия Гуптов:</b> В IV–V веках Северную Индию объединили <b>Самудрагупта</b> (335–380 гг.) и его сын <b>Чандрагупта II</b> (380–415 гг.), чьё правление называют <b>«золотым веком»</b>. В V–VI веках державу уничтожили кочевники.</p>
+  <p><b>5. Четыре варны (созданы богом Брахмой):</b><br>
+  • <b>Брахманы</b> (из уст) — жрецы, хранители знаний и Вед.<br>
+  • <b>Кшатрии</b> (из рук) — воины и правители.<br>
+  • <b>Вайшьи</b> (из бёдер) — земледельцы, ремесленники и торговцы.<br>
+  • <b>Шудры</b> (из ног) — слуги, обязанные смиренно служить высшим варнам.</p>
+`;
+const MODES = [
+  { id: "quiz", step: "Этап 1", name: "Викторина и источник", desc: "16 вопросов по тексту и Законам Ману" },
+  { id: "pairs", step: "Этап 2", name: "Термины и личности", desc: "Соедини понятие и значение" },
+  { id: "map", step: "Этап 3", name: "Работа с картой", desc: "Найди 10 объектов на карте Индии" },
+  { id: "input", step: "Этап 4", name: "Даты и понятия", desc: "Впиши точный ответ сам" }
+];
+
+let currentMode = null;
+let progress = JSON.parse(localStorage.getItem("history_india_17") || "{}");
+let queue = [], streaks = {}, isFinal = false, finalErrors = 0, currentItem = null;
+let selLeft = null, selRight = null, matchedPairs = 0;
+
+function saveProg() { localStorage.setItem("history_india_17", JSON.stringify(progress)); }
+function getMData(m) {
+  if (!progress[m]) progress[m] = { mastered: [], done: false };
+  return progress[m];
+}
+function getItemsForMode(m) {
+  if (m === "quiz") return QUIZ_DATA;
+  if (m === "pairs") return PAIRS_DATA;
+  if (m === "map") return MAP_POINTS;
+  return INPUT_DATA;
+}
+
+function switchTab(btn, tab) {
+  ["train", "notes", "stats"].forEach(t => document.getElementById("tab-" + t).classList.add("hidden"));
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("tab-" + tab).classList.remove("hidden");
+  btn.classList.add("active");
+  if (tab === "notes") document.getElementById("notes-content").innerHTML = NOTES_HTML;
+  if (tab === "stats") renderStats();
+  if (tab === "train") renderMenu();
+}
+
+function renderMenu() {
+  const grid = document.getElementById("modes-grid");
+  grid.innerHTML = "";
+  MODES.forEach(m => {
+    const total = getItemsForMode(m.id).length;
+    const md = getMData(m.id);
+    const card = document.createElement("div");
+    card.className = "mode-card";
+    card.innerHTML = `<span class="mode-step">${m.step}</span><h4>${m.name}</h4><p style="font-size:0.9rem; color:#4B5563;">${m.desc}</p><div style="font-weight:bold; color:var(--primary-dark);">Освоено: ${md.mastered.length} / ${total}</div>${md.done ? `<div class="mode-done">✅ Этап освоен на 100%!</div>` : ""}`;
+    card.onclick = () => startMode(m.id);
+    grid.appendChild(card);
+  });
+}
+
+function startMode(mId) {
+  currentMode = mId;
+  const items = getItemsForMode(mId);
+  const md = getMData(mId);
+  if (md.done) { md.mastered = []; md.done = false; saveProg(); }
+
+  streaks = {};
+  items.forEach(it => streaks[it.id] = md.mastered.includes(it.id) ? 2 : 0);
+  isFinal = false; finalErrors = 0;
+  queue = items.filter(it => !md.mastered.includes(it.id));
+  shuffle(queue);
+
+  document.getElementById("exercise-box").classList.remove("hidden");
+  document.getElementById("ex-mode-title").innerText = MODES.find(m => m.id === mId).name;
+  if (queue.length === 0) startFinal(); else nextQuestion();
+}
+
+function startFinal() {
+  isFinal = true; finalErrors = 0;
+  queue = [...getItemsForMode(currentMode)];
+  shuffle(queue);
+  document.getElementById("final-banner").classList.remove("hidden");
+  nextQuestion();
+}
+
+function closeExercise() {
+  document.getElementById("exercise-box").classList.add("hidden");
+  document.getElementById("final-banner").classList.add("hidden");
+  renderMenu();
+}
+
+function updateBar() {
+  const total = getItemsForMode(currentMode).length;
+  const md = getMData(currentMode);
+  const pct = isFinal ? Math.round(((total - queue.length) / total) * 100) : Math.round((md.mastered.length / total) * 100);
+  document.getElementById("ex-progress-fill").style.width = pct + "%";
+  document.getElementById("ex-progress-text").innerText = isFinal ? `Финальный зачет: осталось ${queue.length} из ${total}` : `Выучено: ${md.mastered.length} из ${total}`;
+}
+function nextQuestion() {
+  document.getElementById("ex-feedback").classList.add("hidden");
+  document.getElementById("ex-next-btn").classList.add("hidden");
+  updateBar();
+
+  if (queue.length === 0) {
+    if (!isFinal) {
+      alert("Отлично! Все задания проработаны. Теперь финальный зачет по всем пунктам без единой ошибки!");
+      startFinal(); return;
+    } else {
+      const box = document.getElementById("ex-content");
+      document.getElementById("final-banner").classList.add("hidden");
+      if (finalErrors === 0) {
+        const md = getMData(currentMode); md.done = true; saveProg();
+        box.innerHTML = `<div style="text-align:center; padding:20px;"><h2>🏆 Блестяще! Этап освоен на 100%!</h2><p>Ни одной ошибки в финальном зачете!</p><button class="btn" onclick="closeExercise()">К списку этапов</button></div>`;
+      } else {
+        box.innerHTML = `<div style="text-align:center; padding:20px;"><h2>👍 Почти готово!</h2><p>Ошибок в финале: ${finalErrors}. Пройди финальный зачет еще раз для закрепления.</p><button class="btn" onclick="startFinal()">🔄 Повторить финал</button></div>`;
+      }
+      return;
+    }
+  }
+
+  if (currentMode === "pairs") { renderPairs(); return; }
+  currentItem = queue.shift();
+  const box = document.getElementById("ex-content");
+
+  if (currentMode === "quiz") {
+    let idxArr = new Array(0, 1, 2, 3); shuffle(idxArr);
+    box.innerHTML = `<div class="q-title">${currentItem.q}</div>
+      <div class="options-grid">${idxArr.map(i => `<button class="opt-btn" onclick="checkQuiz(this, ${i === currentItem.a})">${currentItem.opts[i]}</button>`).join("")}</div>`;
+  } else if (currentMode === "map") {
+    box.innerHTML = `<div class="q-title">🗺️ ${currentItem.q}</div>
+      <div class="map-box">
+        <svg viewBox="0 0 450 450" style="width:100%; display:block;">
+          <path d="M 70,120 L 180,85 L 330,115 L 400,165 L 350,210 L 315,205 L 250,355 L 220,365 L 155,230 L 115,215 L 85,185 Z" fill="#FDE68A" stroke="#D97706" stroke-width="3"/>
+          <path d="M 185,92 Q 250,115 345,145" fill="none" stroke="#78350F" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
+          <text x="235" y="102" font-size="13" font-weight="bold" fill="#78350F">ГИМАЛАИ</text>
+          <path d="M 175,115 Q 145,155 110,205" fill="none" stroke="#0284C7" stroke-width="4"/>
+          <path d="M 225,130 Q 285,175 345,200" fill="none" stroke="#0284C7" stroke-width="4"/>
+          <ellipse cx="278" cy="375" rx="14" ry="22" fill="#FDE68A" stroke="#D97706" stroke-width="2"/>
+          <text x="150" y="430" font-size="15" font-weight="bold" fill="#0369A1">ИНДИЙСКИЙ ОКЕАН</text>
+          ${MAP_POINTS.map(pt => `<g class="map-pin" onclick="checkMap('${pt.id}')"><circle cx="${pt.x}" cy="${pt.y}" r="11" fill="#DC2626" stroke="white" stroke-width="2.5"/></g>`).join("")}
+        </svg>
+      </div>`;
+  } else if (currentMode === "input") {
+    box.innerHTML = `<div class="q-title">${currentItem.q}</div>
+      <input type="text" id="hist-in" placeholder="Введи ответ..." autocomplete="off">
+      <button class="btn" style="width:100%;" onclick="checkInput()">Проверить ответ</button>`;
+  }
+}
+
+function recordOutcome(isOk, explanation) {
+  const fb = document.getElementById("ex-feedback");
+  fb.classList.remove("hidden", "ok", "err");
+  if (isOk) {
+    fb.classList.add("ok"); fb.innerHTML = `✅ Верно! ${explanation}`;
+    if (!isFinal) {
+      streaks[currentItem.id] = (streaks[currentItem.id] || 0) + 1;
+      if (streaks[currentItem.id] >= 2) {
+        const md = getMData(currentMode);
+        if (!md.mastered.includes(currentItem.id)) { md.mastered.push(currentItem.id); saveProg(); }
+      } else queue.splice(Math.min(3, queue.length), 0, currentItem);
+    }
+  } else {
+    fb.classList.add("err"); fb.innerHTML = `❌ Ошибка! ${explanation}`;
+    if (isFinal) finalErrors++;
+    else { streaks[currentItem.id] = 0; queue.splice(Math.min(2, queue.length), 0, currentItem); }
+  }
+  updateBar();
+  document.getElementById("ex-next-btn").classList.remove("hidden");
+}
+
+function checkQuiz(btn, isOk) {
+  document.querySelectorAll(".opt-btn").forEach(b => b.disabled = true);
+  btn.classList.add(isOk ? "correct" : "wrong");
+  recordOutcome(isOk, currentItem.exp);
+}
+
+function checkMap(clickedId) {
+  document.querySelectorAll(".map-pin").forEach(p => p.style.pointerEvents = "none");
+  const isOk = clickedId === currentItem.id;
+  const target = document.querySelector(`.map-pin[onclick="checkMap('${currentItem.id}')"] circle`);
+  if (target) target.setAttribute("fill", "#16A34A");
+  recordOutcome(isOk, isOk ? `Это действительно ${currentItem.name}.` : `Правильная точка подсвечена зелёным: ${currentItem.name}.`);
+}
+
+function checkInput() {
+  const val = document.getElementById("hist-in").value.trim().toLowerCase().replace(/ё/g, "е");
+  if (!val) return;
+  const isOk = currentItem.ans.some(a => val === a || (a.length > 3 && val.includes(a)));
+  recordOutcome(isOk, `Правильный ответ: ${currentItem.show}`);
+}
+
+function renderPairs() {
+  const batch = queue.splice(0, 4);
+  matchedPairs = 0; selLeft = null; selRight = null;
+  const left = [...batch], right = [...batch];
+  shuffle(left); shuffle(right);
+  const box = document.getElementById("ex-content");
+  box.innerHTML = `<p style="text-align:center; font-weight:bold;">Соедини термин/имя слева и его описание справа:</p>
+    <div class="pairs-grid">
+      <div class="pair-col">${left.map(x => `<div class="pair-item" data-id="${x.id}" onclick="pickPair(this, 'L')">${x.term}</div>`).join("")}</div>
+      <div class="pair-col">${right.map(x => `<div class="pair-item" data-id="${x.id}" onclick="pickPair(this, 'R')">${x.def}</div>`).join("")}</div>
+    </div>`;
+  box.dataset.count = batch.length;
+}
+
+function pickPair(el, side) {
+  const col = side === "L" ? ".pair-col:first-child .pair-item" : ".pair-col:last-child .pair-item";
+  document.querySelectorAll(col).forEach(i => i.classList.remove("selected"));
+  el.classList.add("selected");
+  if (side === "L") selLeft = el; else selRight = el;
+
+  if (selLeft && selRight) {
+    const id = selLeft.dataset.id;
+    const obj = PAIRS_DATA.find(p => p.id === id);
+    if (id === selRight.dataset.id) {
+      selLeft.classList.add("matched"); selRight.classList.add("matched"); matchedPairs++;
+      if (!isFinal) {
+        streaks[id] = (streaks[id] || 0) + 1;
+        if (streaks[id] >= 2) {
+          const md = getMData(currentMode);
+          if (!md.mastered.includes(id)) { md.mastered.push(id); saveProg(); }
+        } else queue.push(obj);
+      }
+      if (matchedPairs === parseInt(document.getElementById("ex-content").dataset.count)) {
+        updateBar(); document.getElementById("ex-next-btn").classList.remove("hidden");
+      }
+    } else {
+      alert("Неверная пара! Попробуй ещё раз.");
+      if (isFinal) finalErrors++; else { streaks[id] = 0; if (!queue.includes(obj)) queue.push(obj); }
+    }
+    selLeft.classList.remove("selected"); selRight.classList.remove("selected");
+    selLeft = null; selRight = null;
+  }
+}
+
+function renderStats() {
+  document.getElementById("stats-content").innerHTML = MODES.map(m => {
+    const total = getItemsForMode(m.id).length;
+    const md = getMData(m.id);
+    return `<div style="margin-bottom:12px; font-size:1.05rem;">${m.name}: <b>${md.mastered.length} из ${total}</b> ${md.done ? "✅ (Освоено)" : ""}</div>`;
+  }).join("");
+}
+
+function resetProgress() { if (confirm("Точно сбросить весь прогресс по истории?")) { progress = {}; saveProg(); renderStats(); } }
+function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } }
+
+renderMenu();
+</script>
+</body>
+</html>
